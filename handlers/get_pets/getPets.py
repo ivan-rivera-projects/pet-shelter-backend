@@ -3,8 +3,8 @@ import os
 import boto3
 from botocore.exceptions import ClientError
 
-# Environment variables
-table_name = os.environ.get('PETS_TABLE_NAME', 'Pets')
+# Environment variables - matches class curriculum
+table_name = os.environ['PETS_TABLE']
 region = os.environ.get('AWS_REGION', 'us-east-1')
 
 # Initialize DynamoDB resource
