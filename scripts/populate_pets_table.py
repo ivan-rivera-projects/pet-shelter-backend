@@ -70,7 +70,7 @@ def populate_dynamodb():
             'species': 'Dog',
             'breed': 'German Shepherd',
             'date_entered': '2024-06-20',
-            'image': 'pet-image5.jpeg'
+            'image': 'pet5.jpeg'
         },
         {
             'id': Decimal('6'),
@@ -79,7 +79,7 @@ def populate_dynamodb():
             'species': 'Cat',
             'breed': 'Maine Coon',
             'date_entered': '2024-07-12',
-            'image': 'pet-image6.jpeg'
+            'image': 'pet6.jpeg'
         },
         {
             'id': Decimal('7'),
@@ -88,7 +88,7 @@ def populate_dynamodb():
             'species': 'Dog',
             'breed': 'Beagle',
             'date_entered': '2024-06-25',
-            'image': 'pet-image7.jpeg'
+            'image': 'pet7.jpeg'
         },
         {
             'id': Decimal('8'),
@@ -97,7 +97,7 @@ def populate_dynamodb():
             'species': 'Cat',
             'breed': 'British Shorthair',
             'date_entered': '2024-07-08',
-            'image': 'pet-image8.jpeg'
+            'image': 'pet8.jpeg'
         },
         {
             'id': Decimal('9'),
@@ -106,7 +106,7 @@ def populate_dynamodb():
             'species': 'Dog',
             'breed': 'Bulldog',
             'date_entered': '2024-06-10',
-            'image': 'pet-image9.jpeg'
+            'image': 'pet9.jpeg'
         }
     ]
 
