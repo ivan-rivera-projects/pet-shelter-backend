@@ -1,0 +1,17 @@
+version = 0.1
+
+[default]
+[default.deploy]
+[default.deploy.parameters]
+stack_name = "pet-shelter-backend"
+s3_prefix = "pet-shelter-backend"
+region = "us-east-1"
+confirm_changeset = true
+capabilities = "CAPABILITY_IAM"
+image_repositories = []
+resolve_s3 = true
+
+[default.build]
+[default.build.parameters]
+cached = true
+parallel = true
