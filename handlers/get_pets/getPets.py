@@ -1,6 +1,7 @@
 import json
 import os
 import boto3
+from decimal import Decimal
 from botocore.exceptions import ClientError
 
 # Environment variables - matches class curriculum
@@ -10,6 +11,14 @@ region = os.environ.get('AWS_REGION', 'us-east-1')
 # Initialize DynamoDB resource
 dynamodb = boto3.resource('dynamodb', region_name=region)
 table = dynamodb.Table(table_name)
+
+
+# Helper class to convert DynamoDB Decimal types to JSON
+class DecimalEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, Decimal):
+            return int(obj) if obj % 1 == 0 else float(obj)
+        return super(DecimalEncoder, self).default(obj)
 
 
 def lambda_handler(event, context):
@@ -53,7 +62,7 @@ def lambda_handler(event, context):
             'body': json.dumps({
                 'message': 'Successfully got pets',
                 'pets': pets
-            })
+            }, cls=DecimalEncoder)
         }
 
     except ClientError as e:
