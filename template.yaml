@@ -5,6 +5,55 @@ Description: >
   SAM Template for Pet Shelter Microservices - Learning AWS Architecture
 
 Resources:
+
+  # Add a lambda function called "GetAdoptionLambda" that will also be attached to the PetsAPI
+  # resource and will be triggered at the route /adoptions/{id} with a GET request
+  GetAdoptionLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: handlers/get_adoption
+      Handler: getAdoption.lambda_handler
+      Runtime: python3.11
+      Architectures:
+        - x86_64
+      Environment:
+        Variables:
+          ADOPTIONS_TABLE: !Ref AdoptionsTable
+      Policies:
+        - DynamoDBReadPolicy:
+            TableName: !Ref AdoptionsTable
+      Events:
+        GetAdoptionApi:
+          Type: Api
+          Properties:
+            RestApiId: !Ref PetsAPI
+            Path: /adoptions/{id}
+            Method: get   
+
+  # Add a lambda function called "CreateAdoptionLambda" that will also be attached to the PetsAPI
+  # resource and will be triggered at the route /adoptions with a POST request
+  CreateAdoptionLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: handlers/create_adoption
+      Handler: createAdoption.lambda_handler
+      Runtime: python3.11
+      Architectures:
+        - x86_64
+      Environment:
+        Variables:
+          ADOPTIONS_TABLE: !Ref AdoptionsTable
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref AdoptionsTable
+      Events:
+        CreateAdoptionApi:
+          Type: Api
+          Properties:
+            RestApiId: !Ref PetsAPI
+            Path: /adoptions
+            Method: post
+            
   # ==================== DynamoDB Tables ====================
 
   # DynamoDB Table for storing pet data
@@ -43,6 +92,21 @@ Resources:
           Value: PetShelter
         - Key: Environment
           Value: Learning
+
+  # DynamoDB Table for storing adoptions
+  AdoptionsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: AdoptionsTable
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      ProvisionedThroughput:
+        ReadCapacityUnits: 1
+        WriteCapacityUnits: 1
 
   # ==================== API Gateway ====================
 
@@ -105,6 +169,31 @@ Resources:
             Path: /applications
             Method: POST
 
+  # Add a Lambda function called "GetAdoptionsLambda" that uses the Python 3.12 runtime, and is invoked at the path /adoptions with a get method include the proper IAM role.
+  GetAdoptionsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: getAdoptions
+      CodeUri: handlers/get_adoptions/
+      Handler: getAdoptions.lambda_handler
+      Runtime: python3.11
+      Timeout: 30
+      Environment:
+        Variables:
+          APPLICATIONS_TABLE_NAME: !Ref AdoptionsTable
+      Policies:
+        - DynamoDBReadPolicy:
+            TableName: !Ref AdoptionsTable
+      Events:
+        GetAdoptions:
+          Type: Api
+          Properties:
+            RestApiId: !Ref PetsAPI
+            Path: /adoptions
+            Method: GET
+
+
+
   # Lambda Function: GET /applications
   # Retrieves all adoption applications
   GetApplicationsFunction:
@@ -150,6 +239,20 @@ Outputs:
     Description: "GET /applications - Retrieve all applications"
     Value: !Sub "https://${PetsAPI}.execute-api.${AWS::Region}.amazonaws.com/Prod/applications"
 
+  GetAdoptionsEndpoint:
+    Description: "GET /adoptions - Retrieve all adoptions"
+    Value: !Sub "https://${PetsAPI}.execute-api.${AWS::Region}.amazonaws.com/Prod/adoptions"
+
+  # Add output for the /adoptions API endpoint
+  GetAdoptionsAPIEndpoint:
+    Description: "API Gateway endpoint URL for Prod stage for GetAdoptions function"
+    Value: !Sub "https://${PetsAPI}.execute-api.${AWS::Region}.amazonaws.com/Prod/adoptions/"
+
+  # Output the API endpoint URL for GetAdoptionLambda
+  GetAdoptionAPIEndpoint:
+    Description: "API Gateway endpoint URL for Prod stage for GetAdoption function"
+    Value: !Sub "https://${PetsAPI}.execute-api.${AWS::Region}.amazonaws.com/Prod/adoptions/{id}"
+
   # DynamoDB Tables
   PetsTableName:
     Description: "DynamoDB table name for Pets"
@@ -162,6 +265,12 @@ Outputs:
     Value: !Ref ApplicationsTable
     Export:
       Name: ApplicationsTableName
+
+  AdoptionsTableName: 
+    Description: "DynamoDB table name for Adoptions"
+    Value: !Ref AdoptionsTable
+    Export:
+      Name: AdoptionsTableName
 
   # Region Information
   DeployedRegion:

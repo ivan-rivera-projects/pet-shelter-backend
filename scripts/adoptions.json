@@ -1,0 +1,83 @@
+[
+  {
+      "applicant_name": "John Doe",
+      "email": "john.doe@email.com",
+      "phone": "123456789",
+      "pets": [
+          {
+              "id": "2",
+              "name": "Mittens",
+              "age": "3",
+              "species": "Cat",
+              "date_entered": "2024-06-20",
+              "image": "pet2.jpeg"
+          },
+          {
+              "id": "4",
+              "name": "Whiskers",
+              "age": "4",
+              "species": "Cat",
+              "date_entered": "2024-06-15",
+              "image": "pet4.jpeg"
+          }
+      ],
+      "submitted_at": "2024-08-13T13:11:51.761Z"
+  },
+  {
+      "applicant_name": "Jane Smith",
+      "email": "jane.smith@email.com",
+      "phone": "987654321",
+      "pets": [
+          {
+              "id": "1",
+              "name": "Buddy",
+              "age": "2",
+              "species": "Dog",
+              "date_entered": "2024-07-01",
+              "image": "pet5.jpeg"
+          },
+          {
+              "id": "3",
+              "name": "Rex",
+              "age": "1",
+              "species": "Dog",
+              "date_entered": "2024-07-05",
+              "image": "pet6.jpeg"
+          }
+      ],
+      "submitted_at": "2024-08-13T14:22:35.421Z"
+  },
+  {
+      "id": "3",
+      "applicant_name": "Alice Johnson",
+      "email": "alice.johnson@email.com",
+      "phone": "555123456",
+      "pets": [
+          {
+              "id": "1",
+              "name": "Buddy",
+              "age": "2",
+              "species": "Dog",
+              "date_entered": "2024-07-01",
+              "image": "pet5.jpeg"
+          }
+      ],
+      "submitted_at": "2024-08-13T15:45:12.981Z"
+  },
+  {
+      "applicant_name": "Bob Brown",
+      "email": "bob.brown@email.com",
+      "phone": "444987654",
+      "pets": [
+          {
+              "id": "2",
+              "name": "Mittens",
+              "age": "3",
+              "species": "Cat",
+              "date_entered": "2024-06-20",
+              "image": "pet2.jpeg"
+          }
+      ],
+      "submitted_at": "2024-08-13T16:33:47.591Z"
+  }
+]
