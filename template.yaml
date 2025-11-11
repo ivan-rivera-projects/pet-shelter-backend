@@ -253,6 +253,10 @@ Outputs:
     Description: "API Gateway endpoint URL for Prod stage for GetAdoption function"
     Value: !Sub "https://${PetsAPI}.execute-api.${AWS::Region}.amazonaws.com/Prod/adoptions/{id}"
 
+  CreateAdoptionAPIEndpoint:
+    Description: "API Gateway endpoint URL for Prod stage for CreateAdoption function"
+    Value: !Sub "https://${PetsAPI}.execute-api.${AWS::Region}.amazonaws.com/Prod/adoptions/"
+
   # DynamoDB Tables
   PetsTableName:
     Description: "DynamoDB table name for Pets"
